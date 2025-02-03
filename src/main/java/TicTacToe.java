@@ -19,11 +19,8 @@ public class TicTacToe {
 
         HashSet<String> nameSet = new HashSet<>();
         HashSet<Character> symbolSet = new HashSet<>();
-
-        System.out.println("Are bots going to play ? (Y/N) ");
-        System.out.println("Enter the number of HUMAN players: ");
-        int n = scanner.nextInt();
         char isBotPlayer;
+        boolean bot = false;
         while (true) {
             System.out.println("Are bots going to play? (Y/N) ");
             isBotPlayer = scanner.next().charAt(0);
@@ -32,9 +29,9 @@ public class TicTacToe {
             }
             System.out.println("Invalid Input! Please enter 'Y' or 'N'.");
         }
-        int numberOfPlayers = n;
         BotLevel botLevel = BotLevel.EASY;
         if (isBotPlayer == 'Y') {
+            bot = true;
             char botLevelchar;
             while (true) {
                 System.out.println("Enter Bot level (E/M/H): ");
@@ -54,10 +51,16 @@ public class TicTacToe {
             playerList.add(new Bot('B', "Bot", botLevel));
             nameSet.add("Bot");
             symbolSet.add('B');
+
+        }
+        System.out.println("Enter the number of HUMAN players: ");
+        int n = scanner.nextInt();
+        int numberOfPlayers = n;
+        if(bot){
             numberOfPlayers--;
         }
 
-        for( int i=0; i<numberOfPlayers; i++ ) {
+        for( int i=0; i<=numberOfPlayers; i++ ) {
             try{
                 System.out.println("Enter Player Name ");
                 String playerName = scanner.next();
@@ -87,18 +90,19 @@ public class TicTacToe {
                 System.out.println("Error: " + e.getMessage());
             }
 
-            Game game = gameController.createGame(playerList);
-
-            while(gameController.getGameStatus(game) == GameStatus.InProgress){
-                gameController.printBoard(game);
-                gameController.makeMove(game);
-            }
-            if(gameController.getGameStatus(game) == GameStatus.WON){
-                Player winner = gameController.getWinner(game);
-                System.out.println("Winner is " + winner.getName()+ " with symbol " + winner.getSymbol() + " has won.");
-                gameController.printBoard(game);
-            }
-            else System.out.println("game has drawn");
         }
+
+        Game game = gameController.createGame(playerList);
+
+        while(gameController.getGameStatus(game) == GameStatus.InProgress){
+            gameController.printBoard(game);
+            gameController.makeMove(game);
+        }
+        if(gameController.getGameStatus(game) == GameStatus.WON){
+            Player winner = gameController.getWinner(game);
+            System.out.println("Winner is " + winner.getName()+ " with symbol " + winner.getSymbol() + " has won.");
+            gameController.printBoard(game);
+        }
+        else System.out.println("game has drawn");
     }
 }

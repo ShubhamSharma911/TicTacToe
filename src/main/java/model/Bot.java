@@ -15,6 +15,6 @@ public class Bot extends Player {
     @Override
 
     Pair makeMove() {
-
+        return null;
     }
 }

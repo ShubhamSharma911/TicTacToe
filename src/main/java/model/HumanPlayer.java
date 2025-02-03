@@ -10,6 +10,7 @@ public class HumanPlayer extends Player {
 
     Pair<Integer, Integer> makeMove() {
         Scanner scanner = new Scanner(System.in);
+        System.out.println("It's " + getName() + "'s turn");
         System.out.println("Enter row :  ");
         int x = scanner.nextInt();
         System.out.println("Enter column :  ");

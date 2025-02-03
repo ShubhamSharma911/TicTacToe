@@ -93,8 +93,12 @@ public class TicTacToe {
                 gameController.printBoard(game);
                 gameController.makeMove(game);
             }
-
-
+            if(gameController.getGameStatus(game) == GameStatus.WON){
+                Player winner = gameController.getWinner(game);
+                System.out.println("Winner is " + winner.getName()+ " with symbol " + winner.getSymbol() + " has won.");
+                gameController.printBoard(game);
+            }
+            else System.out.println("game has drawn");
         }
     }
 }

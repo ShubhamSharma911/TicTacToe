@@ -4,7 +4,11 @@ public abstract  class Player {
     protected String name;
     protected char symbol;
 
-    abstract void makeMove();
+    public Player(String name, char symbol) {
+        this.name = name;
+        this.symbol = symbol;
+    }
+    abstract Pair<Integer, Integer> makeMove();
 
     public String getName() {
         return name;

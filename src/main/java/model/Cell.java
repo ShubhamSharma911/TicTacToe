@@ -5,6 +5,12 @@ public class Cell {
     private int y;
     private Player player;
 
+    public Cell(int x, int y){
+        this.x = x;
+        this.y = y;
+
+    }
+
     public int getX() {
         return x;
     }
@@ -27,5 +33,14 @@ public class Cell {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    public void print() {
+        if(player != null){
+            System.out.print(player.getSymbol());
+        }
+        else{
+            System.out.print(" - ");
+        }
     }
 }

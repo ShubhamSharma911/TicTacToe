@@ -5,13 +5,14 @@ import exceptions.InvalidNameException;
 import exceptions.InvalidSymbolException;
 import model.*;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Scanner;
 
 public class TicTacToe {
-    public static void main(String[] args) throws InvalidBotCountException {
+    public static void main(String[] args) throws InvalidBotCountException, InterruptedException {
         GameController gameController = new GameController();
         Scanner scanner = new Scanner(System.in);
 
@@ -93,9 +94,9 @@ public class TicTacToe {
         }
 
         Game game = gameController.createGame(playerList);
-
+        gameController.printBoard(game);
+        System.out.println("!Board!");
         while(gameController.getGameStatus(game) == GameStatus.InProgress){
-            gameController.printBoard(game);
             gameController.makeMove(game);
         }
         if(gameController.getGameStatus(game) == GameStatus.WON){
@@ -104,5 +105,26 @@ public class TicTacToe {
             gameController.printBoard(game);
         }
         else System.out.println("game has drawn");
+
+        boolean isReplay = false;
+        while (true) {
+            System.out.println("Do you want a REPLAY? (Y/N) ");
+            char replay = scanner.next().charAt(0);
+            if (replay == 'Y' || replay == 'N') {
+                if(replay == 'Y'){
+                    isReplay = true;
+                }
+
+                break; // Valid input, exit loop
+            }
+            System.out.println("Invalid Input! Please enter 'Y' or 'N'.");
+        }
+
+        if(isReplay){
+            gameController.clearBoard(game);
+
+            gameController.replay(game);
+        }
+
     }
 }

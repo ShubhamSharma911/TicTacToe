@@ -8,7 +8,7 @@ public abstract  class Player {
         this.name = name;
         this.symbol = symbol;
     }
-    abstract Pair<Integer, Integer> makeMove();
+    abstract Pair<Integer, Integer> makeMove(Board board);
 
     public String getName() {
         return name;

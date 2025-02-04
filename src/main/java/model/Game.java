@@ -4,6 +4,7 @@ import exceptions.InvalidBotCountException;
 import strategies.winningStrategies.OrderOneWinningStrategy;
 import strategies.winningStrategies.PlayerWonStrategy;
 
+import java.sql.SQLOutput;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,7 +61,7 @@ public class Game {
 
         while(true){
            try{
-               pair = player.makeMove();
+               pair = player.makeMove(this.board);
                targetCell = board.getCell(pair.getX(), pair.getY());
                if(targetCell.getPlayer() == null){
                    break;
@@ -78,7 +79,9 @@ public class Game {
         }
 
         this.board.setPlayer(pair.getX(), pair.getY(), player);
-
+        if(players.get(currentPlayerIdx).getName().equals("Bot") ){
+            System.out.println("Bot is making its move");
+        }
         Move move = new Move(player, this.board.getCell(pair.getX(), pair.getY()));
         this.moves.add(move);
         if(playerWonStrategy.checkIfWon(this.board.getCell(pair.getX(), pair.getY()))) { // check if someone has won
@@ -91,6 +94,8 @@ public class Game {
             this.gameStatus = GameStatus.DRAW;
             return;
         }
+        printBoard();
+        System.out.println(players.get(currentPlayerIdx).getName() + " has made its move");
 
         this.currentPlayerIdx = (this.currentPlayerIdx+1) % this.players.size();
 
@@ -99,6 +104,22 @@ public class Game {
 
     public Player getWinner() {
         return this.players.get(currentPlayerIdx);
+    }
+
+    public void clearBoard() {
+        board.clearBoard();
+    }
+
+    public void replay() throws InterruptedException {
+        for(Move move : moves) {
+            Player p = move.getPlayer();
+            Cell c = move.getCell();
+            board.setPlayer(c.getX(), c.getY(), p);
+            System.out.println(p.getName() + " made a move on row,column " + c.getX() + "," + c.getY() );
+            board.printBoard();
+            Thread thread = null;
+            thread.sleep(3000);
+        }
     }
 
     public static class GameBuilder{
@@ -123,4 +144,5 @@ public class Game {
         }
 
     }
+
 }

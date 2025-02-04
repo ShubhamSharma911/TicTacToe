@@ -29,11 +29,12 @@ public class Board {
                 cell.print();
                 count++;
                 if(count <row.size()){
-                    System.out.print("|");
+                    System.out.print(" | ");
                 }
             }
             System.out.println();
         }
+
     }
 
 //    public void setPlayer(int row, int col, Player player) {
@@ -54,4 +55,13 @@ public class Board {
         cell.setPlayer(player);
 
     }
+
+    public void clearBoard() {
+        for(List<Cell> row : grid){
+            for(Cell cell : row){
+                cell.setPlayer(null);
+            }
+        }
+    }
+
 }

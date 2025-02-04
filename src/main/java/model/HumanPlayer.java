@@ -8,7 +8,7 @@ public class HumanPlayer extends Player {
         super(name,symbol);
     }
 
-    Pair<Integer, Integer> makeMove() {
+    Pair<Integer, Integer> makeMove(Board board) {
         Scanner scanner = new Scanner(System.in);
         System.out.println("It's " + getName() + "'s turn");
         System.out.println("Enter row :  ");

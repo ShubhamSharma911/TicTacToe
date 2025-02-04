@@ -29,4 +29,12 @@ public class GameController {
     public Player getWinner(Game game){
         return game.getWinner();
     }
+
+    public void clearBoard(Game game){
+        game.clearBoard();
+    }
+
+    public void replay(Game game) throws InterruptedException {
+        game.replay();
+    }
 }
